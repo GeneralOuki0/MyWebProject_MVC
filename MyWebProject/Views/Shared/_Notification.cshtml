@@ -1,0 +1,18 @@
+﻿@*This is a partial view. These Partial view only renders HTML output within another markup file's rendered output*@
+@*We use partial views for when we want to be able to change the notifications for example we don't have to go to all the pages and change them*@
+@if(TempData["Success"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type ="text/javascript">
+    toastr.success('@TempData["success"]');
+    </script>
+}
+@if(TempData["error"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.error('@TempData["error"]');
+    </script>
+}
