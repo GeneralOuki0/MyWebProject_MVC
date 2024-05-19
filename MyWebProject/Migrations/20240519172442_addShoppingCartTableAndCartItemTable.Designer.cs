@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyWebProject.Data;
 
@@ -11,9 +12,11 @@ using MyWebProject.Data;
 namespace MyWebProject.Migrations
 {
     [DbContext(typeof(ApplicationdbContext))]
-    partial class ApplicationdbContextModelSnapshot : ModelSnapshot
+    [Migration("20240519172442_addShoppingCartTableAndCartItemTable")]
+    partial class addShoppingCartTableAndCartItemTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,10 +240,16 @@ namespace MyWebProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
 
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
 
                     b.HasKey("CartItemId");
@@ -357,6 +366,33 @@ namespace MyWebProject.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MyWebProject.Models.ShoppingCart", b =>
+                {
+                    b.Property<int>("ShoppingCartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShoppingCartId"));
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShoppingCartId");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("ShoppingCarts");
+                });
+
             modelBuilder.Entity("MyWebProject.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -450,6 +486,15 @@ namespace MyWebProject.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("MyWebProject.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("MyWebProject.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("Name");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
