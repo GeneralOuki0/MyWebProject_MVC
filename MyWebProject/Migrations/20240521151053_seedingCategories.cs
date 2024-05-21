@@ -7,19 +7,11 @@
 namespace MyWebProject.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedCategoryTable : Migration
+    public partial class seedingCategories : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Name",
-                table: "Categories",
-                type: "nvarchar(max)",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int");
-
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "DisplayOrder", "Name" },
@@ -48,14 +40,6 @@ namespace MyWebProject.Migrations
                 table: "Categories",
                 keyColumn: "Id",
                 keyValue: 3);
-
-            migrationBuilder.AlterColumn<int>(
-                name: "Name",
-                table: "Categories",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
         }
     }
 }
