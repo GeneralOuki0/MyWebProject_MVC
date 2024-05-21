@@ -20,9 +20,11 @@ namespace MyWebProject.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+        
+
         public IActionResult Index()
         {
-            List<CartItem> objCartItemList = _unitOfWork.CartItem.GetAll().ToList();
+            List<CartItem> objCartItemList = _unitOfWork.CartItem.GetAll(IncludeProperties: "Product").ToList();
             return View(objCartItemList);
         }
 
@@ -51,7 +53,20 @@ namespace MyWebProject.Areas.Admin.Controllers
             return RedirectToAction("Index");
             
         }
-        
-        
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var cartItem = _unitOfWork.CartItem.Get(c => c.CartItemId == id);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            _unitOfWork.CartItem.Remove(cartItem);
+            _unitOfWork.Save();
+            TempData["success"] = "Cart item deleted successfully";
+            return RedirectToAction("Index");
+        }
     }
 }
