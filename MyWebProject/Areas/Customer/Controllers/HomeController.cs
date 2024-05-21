@@ -25,6 +25,7 @@ namespace MyWebProject.Areas.Customer.Controllers
         {
             Product product = _unitOfWork.Product.Get(u => u.Id== productId, IncludeProperties: "Category");
             return View(product);
+
         }
 
         public IActionResult Privacy()
