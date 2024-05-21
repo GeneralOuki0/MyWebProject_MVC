@@ -1,4 +1,6 @@
 ﻿@model List<CartItem>
+
+
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
@@ -25,11 +27,12 @@
             </tr>
         </thead>
         <tbody>
+            @* @Model= _unitOfWork.CartItem.GetAll().ToList(); *@
             @foreach (var obj in Model)
             {
                 <tr>
                     <td>@obj.Product.Title</td>
-                    <td>@obj.Product.Price * @obj.Quantity</td>
+                    <td>@* @obj.Product.Price * *@ @obj.Quantity</td>
                     <td>@obj.Quantity</td>
                     <td>
                         <div class="w-75 btn-group" role="group">

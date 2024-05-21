@@ -16,7 +16,7 @@ namespace MyWebProject.DataAccess.Repository
             this.dbSet = _db.Set<T>();
             
             _db.Products.Include(u => u.Category).Include(u => u.CategoryId); //here category will automatically be filled when we are trying to getall()
-
+            _db.CartItems.Include(u => u.Product).Include(u => u.ProductId);
         }
 
         public void Add(T entity)
