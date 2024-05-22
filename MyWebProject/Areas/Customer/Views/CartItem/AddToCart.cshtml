@@ -20,8 +20,8 @@
                             <select asp-for="@Model.cartItem.ProductId" asp-items="@Model.ProductList" class="form-select border-0 shadow">
                                 <option disabled selected>--Select Product--</option>
                             </select>
-                            <label asp-for="cartItem.ProductId" class="ms-2"></label>
-                            <span asp-validation-for="cartItem.ProductId" class="text-danger"></span>
+                            <label asp-for="@Model.cartItem.ProductId" class="ms-2"></label>
+                            <span asp-validation-for="@Model.cartItem.ProductId" class="text-danger"></span>
                         </div>
 
 
