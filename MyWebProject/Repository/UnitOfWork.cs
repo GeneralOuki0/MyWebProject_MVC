@@ -8,6 +8,7 @@ namespace MyWebProject.Repository
         private ApplicationdbContext _db;
         public ICategoryRepository Category { get; private set; }
         public IProductRepository Product { get; private set; }
+        public IPublisherRepository Publisher { get; private set; }
         public ICartItemRepository CartItem { get; private set; }
         public UnitOfWork(ApplicationdbContext db)
         {
@@ -15,6 +16,7 @@ namespace MyWebProject.Repository
             Category = new CategoryRepository(_db);
             Product = new ProductRepository(_db);
             CartItem = new CartItemRepository(_db);
+            Publisher = new PublisherRepository(_db);
         }
 
         public void Save()

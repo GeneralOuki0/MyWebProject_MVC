@@ -40,6 +40,11 @@ namespace MyWebProject.Models
         [ForeignKey("CategoryId")]
         [ValidateNever]
         public Category Category { get; set; }
+
+        public int PublisherId { get; set; }
+        [ForeignKey("PublisherId")]
+        [ValidateNever]
+        public Publisher Publisher { get; set; }
         [ValidateNever]
         public string ImageUrl { get; set; }
 

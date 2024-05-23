@@ -8,5 +8,7 @@ namespace MyWebProject.Models.ViewModel
         public Product Product { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> CategoryList { get; set; }
+        [ValidateNever]
+        public IEnumerable<SelectListItem> PublisherList { get; set; }
     }
 }

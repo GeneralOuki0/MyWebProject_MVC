@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace MyWebProject.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,6 +70,20 @@ namespace MyWebProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Publishers",
+                columns: table => new
+                {
+                    PublisherId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PublisherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    YearOfPublication = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Publishers", x => x.PublisherId);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,6 +207,7 @@ namespace MyWebProject.Migrations
                     Price50 = table.Column<double>(type: "float", nullable: false),
                     Price100 = table.Column<double>(type: "float", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
+                    PublisherId = table.Column<int>(type: "int", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -201,6 +218,12 @@ namespace MyWebProject.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Products_Publishers_PublisherId",
+                        column: x => x.PublisherId,
+                        principalTable: "Publishers",
+                        principalColumn: "PublisherId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -222,6 +245,16 @@ namespace MyWebProject.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "DisplayOrder", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, "Action" },
+                    { 2, 2, "Scifi" },
+                    { 3, 3, "History" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -272,6 +305,11 @@ namespace MyWebProject.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_PublisherId",
+                table: "Products",
+                column: "PublisherId");
         }
 
         /// <inheritdoc />
@@ -306,6 +344,9 @@ namespace MyWebProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Publishers");
         }
     }
 }

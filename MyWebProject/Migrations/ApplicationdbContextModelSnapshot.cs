@@ -330,6 +330,9 @@ namespace MyWebProject.Migrations
                     b.Property<double>("Price50")
                         .HasColumnType("float");
 
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -338,7 +341,37 @@ namespace MyWebProject.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("PublisherId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("MyWebProject.Models.Publisher", b =>
+                {
+                    b.Property<int>("PublisherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PublisherId"));
+
+                    b.Property<string>("PublisherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearOfPublication")
+                        .HasColumnType("int");
+
+                    b.HasKey("PublisherId");
+
+                    b.ToTable("Publishers");
+
+                    b.HasData(
+                        new
+                        {
+                            PublisherId = 1,
+                            PublisherName = "Michael",
+                            YearOfPublication = 2007
+                        });
                 });
 
             modelBuilder.Entity("MyWebProject.Models.ApplicationUser", b =>
@@ -433,7 +466,15 @@ namespace MyWebProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyWebProject.Models.Publisher", "Publisher")
+                        .WithMany()
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Publisher");
                 });
 #pragma warning restore 612, 618
         }

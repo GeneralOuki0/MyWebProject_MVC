@@ -14,6 +14,7 @@ namespace MyWebProject.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Publisher> Publishers { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,23 +27,11 @@ namespace MyWebProject.Data
                 new Category { Id = 2, Name = "Scifi", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
+            modelBuilder.Entity<Publisher>().HasData(
+                new Publisher { PublisherId = 1, PublisherName = "Michael", YearOfPublication = 2007 }         
+                );
 
-            //modelBuilder.Entity<Product>().HasData(
-            //     new Product
-            //     {
-            //         Id = 1,
-            //         Title = "Fortune of Time",
-            //         Author = "Billy Spark",
-            //         Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
-            //         ISBN = "SWD9999001",
-            //         ListPrice = 99,
-            //         Price = 90,
-            //         Price50 = 85,
-            //         Price100 = 80,
-            //         CategoryId = 1002,
-            //         ImageUrl = ""
-            //     }
-            //     );
+            
 
 
         }

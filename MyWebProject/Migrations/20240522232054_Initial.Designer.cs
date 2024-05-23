@@ -12,8 +12,8 @@ using MyWebProject.Data;
 namespace MyWebProject.Migrations
 {
     [DbContext(typeof(ApplicationdbContext))]
-    [Migration("20240521211929_annotations")]
-    partial class annotations
+    [Migration("20240522232054_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -333,6 +333,9 @@ namespace MyWebProject.Migrations
                     b.Property<double>("Price50")
                         .HasColumnType("float");
 
+                    b.Property<int>("PublisherId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -341,7 +344,29 @@ namespace MyWebProject.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("PublisherId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("MyWebProject.Models.Publisher", b =>
+                {
+                    b.Property<int>("PublisherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PublisherId"));
+
+                    b.Property<string>("PublisherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearOfPublication")
+                        .HasColumnType("int");
+
+                    b.HasKey("PublisherId");
+
+                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("MyWebProject.Models.ApplicationUser", b =>
@@ -436,7 +461,15 @@ namespace MyWebProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MyWebProject.Models.Publisher", "Publisher")
+                        .WithMany()
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Publisher");
                 });
 #pragma warning restore 612, 618
         }

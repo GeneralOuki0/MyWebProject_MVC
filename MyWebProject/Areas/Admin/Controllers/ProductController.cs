@@ -25,7 +25,7 @@ namespace MyWebProject.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll(IncludeProperties: "Category").ToList();
+            List<Product> objProductList = _unitOfWork.Product.GetAll(IncludeProperties: "Category,Publisher").ToList();
 
             return View(objProductList);
         }
@@ -38,6 +38,11 @@ namespace MyWebProject.Areas.Admin.Controllers
                 {
                     Text = u.Name,
                     Value = u.Id.ToString()
+                }),
+                PublisherList = _unitOfWork.Publisher.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.PublisherName,
+                    Value = u.PublisherId.ToString()
                 }),
                 Product = new Product()
             };
@@ -105,6 +110,11 @@ namespace MyWebProject.Areas.Admin.Controllers
                     Text = u.Name,
                     Value = u.Id.ToString()
                 });
+                productVM.PublisherList = _unitOfWork.Publisher.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.PublisherName,
+                    Value = u.PublisherId.ToString()
+                });
                 return View(productVM);
             }
         }
@@ -115,7 +125,7 @@ namespace MyWebProject.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll(IncludeProperties: "Category").ToList();
+            List<Product> objProductList = _unitOfWork.Product.GetAll(IncludeProperties: "Category,Publisher").ToList();
             return Json(new { data = objProductList });
         }
 

@@ -1,0 +1,49 @@
+﻿@model List<Publisher>
+<div class="container">
+<div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">
+                Publisher List
+            </h2>
+        </div>
+        <div class="col-6 text-end pb-3">
+            <a asp-controller="Publisher" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Create new Publisher
+            </a>
+        </div>
+</div>
+<Table class="table table-bordered table-striped ">
+    <thead>
+    <tr>
+        <th>
+            Publisher Name
+        </th>
+        <th>
+            Year of Publication
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model.OrderBy(u=>u.YearOfPublication))
+        {
+            <tr>
+                <td>@obj.PublisherName</td>
+                <td>@obj.YearOfPublication</td>
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Publisher" asp-action="Edit" asp-route-id="@obj.PublisherId" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                            <a asp-controller="Publisher" asp-action="Delete" asp-route-id="@obj.PublisherId" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash3"></i> Delete
+                            </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</Table>
+</div>
