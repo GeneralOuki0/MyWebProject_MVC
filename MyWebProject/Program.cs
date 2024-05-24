@@ -59,7 +59,4 @@ app.MapControllerRoute(
     defaults: new { area = "Admin" });
 
 
-
-
-
 app.Run();

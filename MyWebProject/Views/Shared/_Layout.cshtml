@@ -81,7 +81,7 @@
                             <!-- Add icons to the links using the .nav-icon class
                             with font-awesome or any other icon font library -->
                             <li class="nav-item menu-open">
-                                <a href="#" class="nav-link active">
+                                <a   asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="nav-link active">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
                                         Dashboard
@@ -250,7 +250,7 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">MyWebProject</a>
+                    <a class="navbar-brand" href="#">Bookshop</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -264,6 +264,7 @@
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
+                            @if(User.Identity.IsAuthenticated){
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="Customer" asp-controller="CartItem" asp-action="Index">Shopping Cart</a>
                             </li>
@@ -271,7 +272,8 @@
                                 <a asp-controller="CartItem" asp-action="AddToCart" class="nav-link">
                                     <i class="bi bi-cart"></i> Add to Cart
                                 </a>
-                            </li>                          
+                            </li> 
+                            }
                         </ul>
                         <partial name="_LoginPartial" />
                     </div>
