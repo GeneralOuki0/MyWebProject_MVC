@@ -21,6 +21,12 @@ namespace MyWebProject.Areas.Customer.Controllers
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(IncludeProperties:"Category");
             return View(productList);
         }
+
+        public IActionResult AllBooks()
+        {
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(IncludeProperties: "Category");
+            return View(productList);
+        }
         public IActionResult Details(int productId)
         {
             Product product = _unitOfWork.Product.Get(u => u.Id== productId, IncludeProperties: "Category");

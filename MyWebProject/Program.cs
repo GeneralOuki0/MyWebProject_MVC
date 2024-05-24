@@ -49,7 +49,17 @@ app.MapRazorPages();
 
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+    name: "customer",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}",
+    defaults: new { area = "Customer" });
+
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "{area:exists}/{controller=AdminHome}/{action=Index}/{id?}",
+    defaults: new { area = "Admin" });
+
+
+
+
 
 app.Run();
