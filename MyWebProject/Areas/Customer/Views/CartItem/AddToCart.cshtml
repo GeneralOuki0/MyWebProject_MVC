@@ -12,10 +12,8 @@
         <form method="post" class="row" enctype="multipart/form-data">
             <input asp-for="cartItem.CartItemId" hidden />
             <div class="row">
-                <div class="col-10">
+                <div class="col-12">
                     <div class="border p-3">
-                        
-
                         <div class="form-floating py-2 col-12">
                             <select asp-for="@Model.cartItem.ProductId" asp-items="@Model.ProductList" class="form-select border-0 shadow">
                                 <option disabled selected>--Select Book--</option>
@@ -56,13 +54,6 @@
 
 
 @section Scripts {
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons  lists   table visualblocks wordcount',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough |  align lineheight | numlist bullist indent outdent',
-        });
-    </script>
     @{
         <partial name="_ValidationScriptsPartial" />
     }
